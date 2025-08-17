@@ -24,8 +24,8 @@ export function Login() {
       if (response.ok) {
         const data = await response.json()
         localStorage.setItem('token', data.access_token)
-        console.log('token ture')
-        updateUserInfo(data.username);
+        console.log('token true')
+        updateUserInfo(username);
         navigate('/')
       } else {
         setError('Invalid username or password')

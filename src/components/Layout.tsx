@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoonIcon, SunIcon, HomeIcon, PlusCircleIcon , UserIcon } from 'lucide-react'
-import { useTheme } from "@/components/theme-provider"
+import { useTheme } from "@/hooks/useTheme"
 import { VERSION_CODE, APP_VERSION } from '@/config'
 import { useAuth } from '@/hooks/useAuth'
 interface LayoutProps {

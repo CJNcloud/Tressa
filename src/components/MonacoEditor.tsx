@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import * as monaco from 'monaco-editor'
-import { useTheme } from '@/components/theme-provider'
+import { useTheme } from '@/hooks/useTheme'
 interface MonacoEditorProps {
     language: string
     value: string

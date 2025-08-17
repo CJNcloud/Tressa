@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { useTheme } from '@/components/theme-provider'
+import { useTheme } from '@/hooks/useTheme'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism } from 'react-syntax-highlighter'
@@ -11,7 +11,7 @@ interface CodePreviewProps {
 }
 
 export function CodePreview({ content, language }: CodePreviewProps) {
-    const { theme } = useTheme()
+    const { theme } = useTheme();
 
     if (language === 'markdown') {
         return (
@@ -21,7 +21,8 @@ export function CodePreview({ content, language }: CodePreviewProps) {
                     components={{
                         // @ts-ignore
                         code({node, inline, className, children, ...props}) {
-                            const match = /language-(\w+)/.exec(className || '')
+                            const match = /language-(\w+)/.exec(className || '');
+                            // ['language-python', 'python']
                             return !inline && match ? (
                                 <Prism
                                     // @ts-ignore

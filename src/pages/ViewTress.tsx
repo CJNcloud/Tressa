@@ -6,12 +6,11 @@ import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { AlertCircle, Copy, ArrowUp, ChevronLeft, Trash2, Type, ZoomIn, ZoomOut, RotateCcw, Check } from 'lucide-react'
-import { useToast } from "@/hooks/use-toast"
 import {Prism, Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import { tomorrow, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tress } from '@/types'
 import { API_URL } from '@/config'
-import { useTheme } from '@/components/theme-provider'
+import { useTheme } from '@/hooks/useTheme'
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -25,9 +24,7 @@ export function ViewTress() {
   const [isCopied, setIsCopied] = useState(false)
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { toast } = useToast()
   const { theme } = useTheme()
-
   useEffect(() => {
     const fetchTress = async () => {
       try {
@@ -42,6 +39,8 @@ export function ViewTress() {
           setTress(data)
           setWordCount(data.content.trim().split(/\s+/).length)
           const currentUserId = localStorage.getItem('userId')
+          console.log('currentUserId'+currentUserId)
+          console.log('owner='+data.owner_id.toString());
           setUserCanDelete(currentUserId === data.owner_id.toString())
         } else {
           setError('Failed to fetch tress')
@@ -72,10 +71,6 @@ export function ViewTress() {
       })
       if (response.ok) {
         navigate('/')
-        toast({
-          title: "Tress deleted",
-          description: "The tress has been successfully deleted.",
-        })
       } else {
         setError('Failed to delete tress')
       }
@@ -224,7 +219,7 @@ export function ViewTress() {
               <SyntaxHighlighter
                   language={tress.language.toLowerCase()}
                   style={theme === 'dark' ? tomorrow : oneLight}
-                  customStyle={{fontSize: `${fontSize}px`}}
+                  customStyle={{fontSize: '${fontSize}px'}}
                   className="rounded-md"
               >
                 {tress.content}

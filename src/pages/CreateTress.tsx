@@ -39,9 +39,9 @@ export function CreateTress() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('token');
       if (!token) {
-        navigate('/login')
+        navigate('/login');
         return
       }
       const response = await fetch(`${API_URL}/api/tress/`, {
@@ -53,11 +53,12 @@ export function CreateTress() {
         body: JSON.stringify({ title, content, language, is_public: isPublic }),
       })
       if (response.ok) {
-        const data = await response.json()
-        navigate(`/tress/${data.id}`)
+        const data = await response.json();
+        console.log(data.id);
+        navigate(`/tress/${data.id}`);
       } else {
-        const data = await response.json()
-        setError(data.detail || 'Failed to create tress')
+        const data = await response.json();
+        setError(data.detail || 'Failed to create tress');
       }
     } catch (err) {
       setError('An error occurred while creating the tress')
